@@ -33,7 +33,7 @@ export class AccessJsonStore {
         fileData.push(data);
       }
 
-      return await this.writeFile(fileName, data);
+      return await this.writeFile(fileName, fileData);
     } catch (error) {
       return { data: null, error };
     }
