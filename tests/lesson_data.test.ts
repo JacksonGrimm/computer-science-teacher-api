@@ -1,5 +1,5 @@
 import { access, readFile, constants } from "node:fs/promises";
-import AccessJsonStore from "../utils/access_json_store.util";
+import { AccessJsonStore } from "../utils/access_json_store.util";
 
 //create file if one is not there
 //read file
