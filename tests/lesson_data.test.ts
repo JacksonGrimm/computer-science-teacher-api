@@ -7,13 +7,13 @@ import AccessJsonStore from "../utils/access_json_store.util";
 //get first item then return to file
 
 const lessonStore = new AccessJsonStore("./tests/output/");
-const name = "lessons.data.json";
+const name = "lessons.test.data.json";
 
 test("Create file if one is not found", async () => {
   await lessonStore.writeFile(name, []);
 
   const file = await access(
-    "./tests/output/lessons.data.json",
+    `./tests/output/${name}`,
     constants.R_OK || constants.W_OK
   );
   expect(file).toBe(undefined);
