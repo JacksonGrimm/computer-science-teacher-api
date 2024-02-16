@@ -8,11 +8,9 @@ export async function handleGetLesson(
   fileName: string,
   fetchLessonFromOpenAI: Function
 ): Promise<string> {
-  //check the date and update cache
+  //check the date
   const [isNewDay] = dateCheck(cache.get("date"));
-  if (!isNewDay) return cache.get("lesson");
-
-  cache.put("date", new Date().toDateString());
+  if (!isNewDay && cache.get("lesson")) return cache.get("lesson");
 
   //get lesson from JSON
   const { data: lesson, error: jsonStoreError } = await lessonStore.popData(
@@ -24,10 +22,11 @@ export async function handleGetLesson(
   const { data: openAIResponse, error: fetchError } =
     await fetchLessonFromOpenAI(lesson);
   if (jsonStoreError || !openAIResponse)
-    throw new Error(fetchError || openAIResponse);
+    throw new Error(fetchError || "No lesson Data in lesson store found");
 
   //updates cache
   cache.put("lesson", openAIResponse);
+  cache.put("date", new Date().toDateString());
 
   return openAIResponse;
 }
