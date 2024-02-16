@@ -8,7 +8,7 @@ const openai = new OpenAI({
   organization: process.env.ORGANIZATION,
 });
 
-export async function fetchLessonFromOpenAI(lesson) {
+export async function fetchLessonFromOpenAI(lesson: string) {
   try {
     const completion = await openai.chat.completions.create({
       messages: [
@@ -26,6 +26,6 @@ export async function fetchLessonFromOpenAI(lesson) {
   }
 }
 
-export async function MockFetchLessonFromOpenAI(lesson) {
+export async function MockFetchLessonFromOpenAI(lesson: string) {
   return { data: `testing ${lesson}`, error: null };
 }

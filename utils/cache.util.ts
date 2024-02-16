@@ -1,13 +1,13 @@
 class CacheData {
   private cache = {};
 
-  put(key: string, value: any): boolean {
-    this.cache[key] = value;
+  put(key: string, value: string): boolean {
+    (this.cache as any)[key] = value;
     return true;
   }
 
-  get(key: string): any | undefined {
-    return this.cache[key];
+  get(key: string): string | undefined {
+    return (this.cache as any)[key];
   }
 
   clear(): boolean {

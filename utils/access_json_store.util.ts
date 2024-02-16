@@ -7,7 +7,7 @@ export class AccessJsonStore {
     this.path = path;
   }
 
-  async writeFile(fileName: string, data) {
+  async writeFile(fileName: string, data: string[]) {
     try {
       const writeResponse = await writeFile(
         `${this.path}${fileName}`,

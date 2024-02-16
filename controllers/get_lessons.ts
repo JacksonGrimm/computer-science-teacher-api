@@ -9,16 +9,18 @@ export async function handleGetLesson(
   fetchLessonFromOpenAI: Function
 ): Promise<string> {
   //check the date
-  const [isNewDay] = dateCheck(cache.get("date"));
-  if (!isNewDay && cache.get("lesson")) return cache.get("lesson");
+
+  const [isNewDay] = dateCheck(cache.get("date") || "");
+  if (!isNewDay && cache.get("lesson")) return cache.get("lesson") || "";
 
   //get lesson from JSON
   const { data: lesson, error: jsonStoreError } = await lessonStore.popData(
     fileName
   );
-  if (jsonStoreError) throw new Error(jsonStoreError);
+  if (jsonStoreError) throw jsonStoreError;
 
   //fetch lesson from Open AI
+  console.log("fetch new");
   const { data: openAIResponse, error: fetchError } =
     await fetchLessonFromOpenAI(lesson);
   if (jsonStoreError || !openAIResponse)
