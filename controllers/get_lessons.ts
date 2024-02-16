@@ -1,6 +1,6 @@
 import { AccessJsonStore } from "../utils/access_json_store.util";
 import { dateCheck } from "../utils/datecheck.util";
-import CacheData from "../utils/cache";
+import CacheData from "../utils/cache.util";
 
 export async function handleGetLesson(
   cache: CacheData,

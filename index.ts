@@ -1,6 +1,7 @@
 import express from "express";
 
-import { dateCheck, dateCheckMiddleware } from "./utils/datecheck.util";
+import { dateCheckMiddleware } from "./utils/datecheck.util";
+import { getLesson } from "./routes/gpt";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -8,8 +9,14 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/", dateCheckMiddleware, (req, res) => {
-  res.send("got it!");
+app.use("/get-lesson", dateCheckMiddleware, async (req, res) => {
+  //   const lesson = await getLesson();
+  console.log("fetch");
+  res.send("lesson");
+});
+
+app.use("/code-challenge", (req, res) => {
+  res.redirect("https://codewarsapi.herokuapp.com/api/getDailyChallenge");
 });
 
 app.listen(PORT, () => {

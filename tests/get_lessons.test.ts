@@ -1,6 +1,6 @@
 import { handleGetLesson } from "../controllers/get_lessons";
 import { AccessJsonStore } from "../utils/access_json_store.util";
-import CacheData from "../utils/cache";
+import CacheData from "../utils/cache.util";
 
 const name = "get_lessons.test.data.json";
 
