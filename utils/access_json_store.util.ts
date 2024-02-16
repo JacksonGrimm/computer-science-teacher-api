@@ -1,6 +1,6 @@
 import { writeFile, readFile } from "node:fs/promises";
 
-class AccessJsonStore {
+export class AccessJsonStore {
   path: string;
 
   constructor(path: string) {
@@ -70,4 +70,4 @@ class AccessJsonStore {
   }
 }
 
-export default AccessJsonStore;
+export const lessonStore = new AccessJsonStore("./json_data/");

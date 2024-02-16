@@ -1,6 +1,8 @@
+type DateCheckResponse = [isNewDay: Boolean, currentData: string];
+
 import { Request, Response, NextFunction } from "express";
 
-export function dateCheck(date: string) {
+export function dateCheck(date: string): DateCheckResponse {
   const currentDate = new Date();
 
   if (date) {
@@ -25,5 +27,11 @@ export function dateCheckMiddleware(
     return;
   } else {
     console.log("same data");
+    res.end();
   }
 }
+
+//implement routes
+//implement lesson plans
+//implement keeping track of current days state
+//implement codewars API
