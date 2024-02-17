@@ -1,7 +1,12 @@
-import express from "express";
+import express, { json } from "express";
 
-import { dateCheckMiddleware } from "./utils/datecheck.util";
-import { getLesson } from "./routes/gpt";
+import { handleGetLesson } from "./controllers/get_lessons";
+import { lessonStore } from "./utils/access_json_store.util";
+import CacheData from "./utils/cache.util";
+import {
+  MockFetchLessonFromOpenAI,
+  fetchLessonFromOpenAI,
+} from "./utils/gpt.util";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -9,10 +14,25 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/get-lesson", dateCheckMiddleware, async (req, res) => {
-  //   const lesson = await getLesson();
-  console.log("fetch");
-  res.send("lesson");
+const cache = new CacheData();
+cache.put("date", new Date().toDateString());
+
+app.use("/get-lesson", async (req, res) => {
+  try {
+    const lessonResponse = await handleGetLesson(
+      cache,
+      lessonStore,
+      "lessons.data.json",
+      fetchLessonFromOpenAI
+    );
+    if (lessonResponse) {
+      res.status(200).json({ lesson: lessonResponse });
+    } else {
+      throw new Error("No lesson response was found");
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 app.use("/code-challenge", (req, res) => {

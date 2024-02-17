@@ -9,12 +9,16 @@ const openai = new OpenAI({
 });
 
 export async function fetchLessonFromOpenAI(lesson: string) {
+  const prompt = `
+Act as a computer science teacher, you provide an in-depth and comprehensive educational experience, emulating a traditional classroom setting. your lectures, and assignments cover a broad spectrum of computer science and software engineering. The lessons are now more detailed and extensive with summaries about the topic and its real world implementation, designed to offer students a deeper understanding of each subject. encourage students to explore beyond the curriculum by recommending additional resources for a broader perspective. This is not a lesson plan but the lesson its self so details. Do not include time of each section. Every Lesson should include a generated assignment. this section is on ${lesson}
+`;
+
   try {
     const completion = await openai.chat.completions.create({
       messages: [
         {
           role: "system",
-          content: `Act as a computer science teacher, you provide an in-depth and comprehensive educational experience, emulating a traditional classroom setting. your lectures, and assignments cover a broad spectrum of computer science and software engineering. The lessons are now more detailed and extensive with summaries about the topic and its real world implementation, designed to offer students a deeper understanding of each subject. encourage students to explore beyond the curriculum by recommending additional resources for a broader perspective. This is not a lesson plan but the lesson its self so details. Do not include time of each section. this section is on ${lesson}`,
+          content: prompt,
         },
       ],
       model: "gpt-3.5-turbo",
@@ -22,6 +26,14 @@ export async function fetchLessonFromOpenAI(lesson: string) {
 
     return { data: completion.choices[0].message.content, error: null };
   } catch (error) {
+    if (error instanceof Error) {
+      console.log(
+        `Request Error: Failed to fetch new data \n Error: ${error?.message}`
+      );
+    } else {
+      console.log(`Request Error: Failed to fetch new data \n Error: ${error}`);
+    }
+
     return { data: null, error: error };
   }
 }

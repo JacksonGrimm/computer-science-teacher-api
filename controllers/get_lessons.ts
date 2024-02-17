@@ -11,7 +11,11 @@ export async function handleGetLesson(
   //check the date
 
   const [isNewDay] = dateCheck(cache.get("date") || "");
-  if (!isNewDay && cache.get("lesson")) return cache.get("lesson") || "";
+  if (!isNewDay && cache.get("lesson")) {
+    console.log(`Request: displaying cache data`);
+
+    return cache.get("lesson") || "";
+  }
 
   //get lesson from JSON
   const { data: lesson, error: jsonStoreError } = await lessonStore.popData(
@@ -20,7 +24,7 @@ export async function handleGetLesson(
   if (jsonStoreError) throw jsonStoreError;
 
   //fetch lesson from Open AI
-  console.log("fetch new");
+  console.log(`Request: fetching new data from openAi`);
   const { data: openAIResponse, error: fetchError } =
     await fetchLessonFromOpenAI(lesson);
   if (jsonStoreError || !openAIResponse)
