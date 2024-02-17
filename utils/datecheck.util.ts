@@ -30,8 +30,3 @@ export function dateCheckMiddleware(
     res.end();
   }
 }
-
-//implement routes
-//implement lesson plans
-//implement keeping track of current days state
-//implement codewars API
