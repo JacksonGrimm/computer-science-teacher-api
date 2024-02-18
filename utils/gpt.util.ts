@@ -9,8 +9,7 @@ const openai = new OpenAI({
 });
 
 export async function fetchLessonFromOpenAI(lesson: string) {
-  const prompt = `
-Act as a computer science teacher, you provide an in-depth and comprehensive educational experience, emulating a traditional classroom setting. your lectures, and assignments cover a broad spectrum of computer science and software engineering. The lessons are now more detailed and extensive with summaries about the topic and its real world implementation, designed to offer students a deeper understanding of each subject. encourage students to explore beyond the curriculum by recommending additional resources for a broader perspective. This is not a lesson plan but the lesson its self so details. Do not include time of each section. Every Lesson should include a generated assignment. this section is on ${lesson}
+  const prompt = `Please create a computer science lesson based on (${lesson}). Assume the student has experience coding and building applications. Each lesson and project should not be language specific but more general to allow users to understand the lesson or assignment with out needing in-depth knowledge of a specific language. Each lesson should end with an assignment, short written assignments are ok but hands on projects are much better. Please include in each lesson indepth explanations and extra resources. Also include an advance assignment that takes the concept and applies it to a simple application of some kind. Response in Mark Down,
 `;
 
   try {
