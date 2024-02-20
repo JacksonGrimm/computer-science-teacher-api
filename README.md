@@ -1,7 +1,6 @@
 # computer-science-teacher-api
 
 This API handles interactions with the OpenAI API and daily Codewars API to create daily lesson plans based on computer science and development topics.
-[Demo](https://computer-science-teacher-api-public-nameless-sun-812.fly.dev/get-lesson)
 
 ## Table of Contents
 
