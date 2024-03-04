@@ -8,6 +8,11 @@ const openai = new OpenAI({
   organization: process.env.ORGANIZATION,
 });
 
+/**
+ * Gets Lesson from openAI API based on lesson input.
+ * @param lesson this is the lesson that the prompt will built on. Ex: Binary Trees, Heaps, Currying...
+ * @returns OpenAI prompt response based on lesson input.
+ */
 export async function fetchLessonFromOpenAI(lesson: string) {
   const prompt = `Please create a computer science lesson based on (${lesson}). Assume the student has experience coding and building applications. Each lesson and project should not be language specific but more general to allow users to understand the lesson or assignment with out needing in-depth knowledge of a specific language. Each lesson should end with an assignment, short written assignments are ok but hands on projects are much better. Please include in each lesson indepth explanations and extra resources. Also include an advance assignment that takes the concept and applies it to a simple application of some kind. Response in Mark Down,
 `;
