@@ -31,8 +31,7 @@ export async function handleGetLesson(
     throw new Error(fetchError || "No lesson Data in lesson store found");
 
   //updates cache
-  cache.put("lesson", openAIResponse);
-  cache.put("date", new Date().toDateString());
+  cache.put("lesson", openAIResponse).put("date", new Date().toDateString());
 
   return openAIResponse;
 }
