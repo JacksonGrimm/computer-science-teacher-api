@@ -6,24 +6,23 @@ class CacheData {
    * @param key
    * @param value
    */
-  put(key: string, value: string): boolean {
+  put(key: string, value: string): this {
     (this.cache as any)[key] = value;
-    return true;
+    return this;
   }
   /**
    * get value from cache. this operation does not remove the value from the cache, it only retrieves it.
    * @param key
-   * @returns
    */
   get(key: string): string | undefined {
     return (this.cache as any)[key];
   }
   /**
    * Clears the cache entirely
-   * @returns
    */
-  clear(): void {
+  clear(): this {
     this.cache = {};
+    return this;
   }
 }
 
