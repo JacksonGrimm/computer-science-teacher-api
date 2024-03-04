@@ -1,4 +1,4 @@
-import CacheData from "../utils/cache";
+import CacheData from "../utils/cache.util";
 
 var cacheData = new CacheData();
 
@@ -11,7 +11,7 @@ test("tests getting data in cache", () => {
 });
 
 test("tests overwrite data", () => {
-  cacheData.put("key", null);
+  cacheData.put("key", "null");
   cacheData.put("key", "data");
 
   expect(cacheData.get("key")).toBe("data");

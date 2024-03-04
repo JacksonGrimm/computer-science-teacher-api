@@ -1,5 +1,10 @@
 import { writeFile, readFile } from "node:fs/promises";
 
+type FileReturn = { data: any; error: Error | null };
+
+/**
+ * run stack operations to JSON files
+ */
 export class AccessJsonStore {
   path: string;
 
@@ -7,6 +12,12 @@ export class AccessJsonStore {
     this.path = path;
   }
 
+  /**
+   *
+   * @param fileName name of JSON file you would like to write
+   * @param data data to be written to the file
+}
+   */
   async writeFile(fileName: string, data: string[]) {
     try {
       const writeResponse = await writeFile(
@@ -20,6 +31,11 @@ export class AccessJsonStore {
     }
   }
 
+  /**
+   *
+   * @param fileName name of JSON file you would like to write
+   * @param data data to be written to the file
+   */
   async pushToJsonData(fileName: string, data: string | string[]) {
     try {
       const { data: fileData } = await this.accessJsonData(fileName);
@@ -39,6 +55,10 @@ export class AccessJsonStore {
     }
   }
 
+  /**
+   * read data of JSON file
+   * @param fileName name of JSON file you would like to read
+   */
   async accessJsonData(fileName: string) {
     try {
       const fileData = await readFile(`${this.path}${fileName}`, {
@@ -51,6 +71,11 @@ export class AccessJsonStore {
     }
   }
 
+  /**
+   * run stack "pop" operation on JSON file array
+   * @param fileName name of file you would like to read and mutate
+   * @returns
+   */
   async popData(fileName: string) {
     try {
       const { data: fileData } = await this.accessJsonData(fileName);
