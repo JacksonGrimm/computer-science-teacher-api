@@ -1,13 +1,1 @@
-{
-  "version": 2,
-  "builds": [{
-    "src": "./index.ts",
-    "use": "@now/node-server"
-  }],
-  "routes": [{"handle": "filesystem"},
-    {
-      "src": "/.*",
-      "dest": "index.ts"
-    }
-  ]
-}
+{"rewrites":[{"source": "/(.*)", "destination":"./index.ts"}]
